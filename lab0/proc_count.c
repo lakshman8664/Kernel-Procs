@@ -7,7 +7,15 @@
 static struct proc_dir_entry *entry;
 
 static int proc_count(struct seq_file *m, void *v){
-	seq_printf(m, "Proc/count contains this string.");
+	struct task_struct *t;
+
+	int num_procs = 0;
+
+	for_each_process(t){
+		num_procs++;
+	}
+
+	seq_printf(m, "%d", num_procs);
 	return 0;
 }
 
